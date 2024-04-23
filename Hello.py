@@ -29,20 +29,49 @@ def main():
         st.write("Dados do arquivo Excel:")
         st.write(df)
 
-        # Processamento dos dados
-        process_data(df)
+        # Formulário para informações adicionais
+        st.header("Informações Adicionais")
+        tipo_operacao = st.selectbox("Tipo de Operação", ["I - Inclusão", "A - Alteração", "E - Exclusão", "F - Finalização"])
+        inicio_direito = st.text_input("Início do Direito (AAAAMM)")
+        fim_direito = st.text_input("Data Final do Direito (AAAAMM)")
+        num_parcelas = st.text_input("Número de Parcelas (dois dígitos)")
+        valor_indice = st.text_input("Valor do Índice (10 dígitos, 4 casas decimais)")
+        valor_lancamento = st.text_input("Valor do Lançamento (9 dígitos, 2 casas decimais)")
+        documento = st.text_input("Documento (15 dígitos)")
+
+        # Gerar arquivo .txt
+        if st.button("Gerar Arquivo .txt"):
+            generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_indice, valor_lancamento, documento)
 
 
-def process_data(df):
-    # Adicione aqui a lógica para processar os dados do arquivo Excel
-    # Aqui você pode combinar os dados do Excel com os dados do formulário
-    # e gerar o arquivo .txt conforme necessário
-    # Por enquanto, vamos apenas mostrar uma mensagem de exemplo
-    st.write("Aqui você pode adicionar a lógica para processar os dados e gerar o arquivo .txt")
+def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_indice, valor_lancamento, documento):
+    # Verifica se o campo de Data Final do Direito está vazio
+    if fim_direito == "":
+        fim_direito = " " * 6
+
+    # Verifica se o campo de Número de Parcelas está vazio
+    if num_parcelas == "":
+        num_parcelas = " " * 2
+
+    # Formatação dos campos
+    tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
+    inicio_direito = inicio_direito.zfill(6)
+    valor_indice = '{:010.4f}'.format(float(valor_indice)).replace('.', '')  # Formatar com 4 casas decimais sem vírgula
+    valor_lancamento = '{:09.2f}'.format(float(valor_lancamento)).replace('.', '')  # Formatar com 2 casas decimais sem vírgula
+
+    # Criar o conteúdo do arquivo .txt
+    txt_content = f"{tipo_operacao}{inicio_direito}{fim_direito}{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
+
+    # Escrever o conteúdo no arquivo
+    with open("dados.txt", "w") as txt_file:
+        txt_file.write(txt_content)
+
+    st.success("Arquivo .txt gerado com sucesso!")
 
 
 if __name__ == "__main__":
     main()
+
 
 
 
