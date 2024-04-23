@@ -1,26 +1,11 @@
 import streamlit as st
 import pandas as pd
-import base64
 
 def main():
     st.title("App de Processamento de Dados")
-   
-    # Função para codificar o texto em base64
-    def get_base64_of_bin_file(bin_file):
-        with open(bin_file, 'rb') as f:
-            data = f.read()
-        return base64.b64encode(data).decode()
-
-    # Função para exibir o botão personalizado
-    def st_custom_file_uploader(label):
-        # Obtendo o texto codificado em base64
-        html_code = f'<label for="file" style="cursor:pointer;">{label}</label>'
-        return html_code
-
-    # Exibindo o botão personalizado
-    uploaded_file = st_custom_file_uploader("Faça upload do arquivo Excel")
-
-# Usando o botão de upload personalizado
+    
+    # Upload do arquivo Excel na página principal
+    uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"], accept_multiple_files=False, help="Faça upload aqui")
 
     if uploaded_file is not None:
         # Lendo o arquivo Excel sem cabeçalhos de coluna
