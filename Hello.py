@@ -44,7 +44,7 @@ def main():
 
         with col2:
             num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
-            
+
             valor_coluna = st.selectbox("O Valor da Planilha é um:", ["Índice", "Valor"])
 
             documento = st.text_input("Documento (15 dígitos)", max_chars=15)
@@ -65,18 +65,20 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
     # Determina os valores dos campos de índice e valor do lançamento com base na seleção do usuário
     if valor_coluna == "Índice":
-        valor_indice = " " * 10
-        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '')  # Formatar com 2 casas decimais sem vírgula
+        valor_indice = df["VALOR"].astype(int).astype(str).str.zfill(10)  # Converte para inteiro e preenche com zeros à esquerda
+        valor_lancamento = " " * 9  # Campo de valor do lançamento fica vazio
     else:  # Se valor_coluna for "Valor"
-        valor_lancamento = " " * 9
-        valor_indice = '{:010.4f}'.format(float(df["VALOR"])).replace('.', '')  # Formatar com 4 casas decimais sem vírgula
+        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '').zfill(9)  # Formata com 2 casas decimais sem vírgula e preenche com zeros à esquerda
+        valor_indice = " " * 10  # Campo de valor do índice fica vazio
 
     # Formatação dos campos
     tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
     inicio_direito = inicio_direito.zfill(6)
+    fim_direito = fim_direito.zfill(6)
+    documento = documento.zfill(15)  # Preenche o documento com zeros à esquerda para ter sempre 15 dígitos
 
     # Criar o conteúdo do arquivo .txt
-    txt_content = f"{tipo_operacao}{inicio_direito}{fim_direito}{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
+    txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo']}{df['CPF']}{df['RUBRICA']}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
     # Escrever o conteúdo no arquivo
     with open("dados.txt", "w") as txt_file:
