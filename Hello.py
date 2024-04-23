@@ -73,7 +73,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
     inicio_direito = inicio_direito.zfill(6)
     fim_direito = fim_direito.zfill(6)
-    documento = documento.zfill(15)  # Preenche o documento com zeros à esquerda para ter sempre 15 dígitos
+    documento = documento.strip()  # Remove espaços em branco do documento
 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo'].iloc[0]}{df['CPF'].iloc[0]}{df['RUBRICA'].iloc[0]}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
@@ -85,7 +85,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     # Botão de download
     download_button = st.download_button(
         label="Clique para baixar o arquivo .txt",
-        data=txt_content,
+        data=open("dados.txt", "rb"),
         file_name="dados.txt",
         mime="text/plain"
     )
@@ -95,3 +95,4 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
 if __name__ == "__main__":
     main()
+
