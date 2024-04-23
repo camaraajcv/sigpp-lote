@@ -40,21 +40,19 @@ def main():
 
             fim_direito = st.text_input("Data Final do Direito (AAAAMM)", max_chars=6)
 
+        with col2:
             num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
 
-        with col2:
-            valor_indice = st.text_input("Valor do Índice (10 dígitos, 4 casas decimais)", max_chars=14)
-
-            valor_lancamento = st.text_input("Valor do Lançamento (9 dígitos, 2 casas decimais)", max_chars=11)
+            valor_coluna = st.selectbox("O Valor da Planilha é um:", ["Índice", "Valor"])
 
             documento = st.text_input("Documento (15 dígitos)")
 
         # Gerar arquivo .txt
         if st.button("Gerar Arquivo .txt"):
-            generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_indice, valor_lancamento, documento)
+            generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_coluna, documento, df)
 
 
-def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_indice, valor_lancamento, documento):
+def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_coluna, documento, df):
     # Verifica se o campo de Data Final do Direito está vazio
     if fim_direito == "":
         fim_direito = " " * 6
@@ -63,11 +61,17 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     if num_parcelas == "":
         num_parcelas = " " * 2
 
+    # Determina os valores dos campos de índice e valor do lançamento com base na seleção do usuário
+    if valor_coluna == "Índice":
+        valor_indice = " " * 10
+        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '')  # Formatar com 2 casas decimais sem vírgula
+    else:  # Se valor_coluna for "Valor"
+        valor_lancamento = " " * 9
+        valor_indice = '{:010.4f}'.format(float(df["VALOR"])).replace('.', '')  # Formatar com 4 casas decimais sem vírgula
+
     # Formatação dos campos
     tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
     inicio_direito = inicio_direito.zfill(6)
-    valor_indice = '{:010.4f}'.format(float(valor_indice)).replace('.', '')  # Formatar com 4 casas decimais sem vírgula
-    valor_lancamento = '{:09.2f}'.format(float(valor_lancamento)).replace('.', '')  # Formatar com 2 casas decimais sem vírgula
 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}{inicio_direito}{fim_direito}{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
@@ -81,6 +85,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
 if __name__ == "__main__":
     main()
+
 
 
 
