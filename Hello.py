@@ -80,11 +80,16 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo']}{df['CPF']}{df['RUBRICA']}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
-    # Escrever o conteúdo no arquivo
-    with open("dados.txt", "w") as txt_file:
-        txt_file.write(txt_content)
+    # Botão de download
+    download_button = st.download_button(
+        label="Clique para baixar o arquivo .txt",
+        data=txt_content,
+        file_name="dados.txt",
+        mime="text/plain"
+    )
 
-    st.success("Arquivo .txt gerado com sucesso!")
+    if download_button:
+        st.success("Arquivo .txt gerado e baixado com sucesso!")
 
 
 if __name__ == "__main__":
