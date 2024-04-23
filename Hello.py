@@ -3,7 +3,7 @@ import pandas as pd
 
 def main():
     # URL da imagem
-    image_url = "/workspaces/sigpp-lote/logoSIGRH_Cabecalho.png"
+    image_url = "logoSIGRH_Cabecalho.png"
 
     # Exibindo a imagem
     st.image(image_url, caption='Logo SIGRH', use_column_width=True)
