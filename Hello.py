@@ -40,9 +40,11 @@ def main():
 
             fim_direito = st.text_input("Data Final do Direito (AAAAMM)", max_chars=6)
 
-            num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
+           
 
         with col2:
+            num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
+            
             valor_coluna = st.selectbox("O Valor da Planilha é um:", ["Índice", "Valor"])
 
             documento = st.text_input("Documento (15 dígitos)", max_chars=15)
