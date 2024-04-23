@@ -20,6 +20,8 @@ def main():
             df['Saram_vinculo'] = df['Saram_vinculo'].astype(str).str.zfill(10)
             # Formata a coluna 'CPF' como número inteiro de 11 dígitos
             df['CPF'] = df['CPF'].astype(str).str.zfill(11)
+            # Formata a coluna 'RUBRICA' como número inteiro de 6 dígitos
+            df['RUBRICA'] = df['RUBRICA'].astype(str).str.zfill(6)
         else:
             st.error("Erro: O arquivo Excel deve ter exatamente 4 colunas.")
 
@@ -41,5 +43,6 @@ def process_data(df):
 
 if __name__ == "__main__":
     main()
+
 
 
