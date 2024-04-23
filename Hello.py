@@ -5,10 +5,17 @@ def main():
     # URL da imagem
     image_url = "logoSIGRH_Cabecalho.png"
 
-   # Container para centralizar a imagem horizontalmente
-    with st.beta_container():
+   # Centralizando a imagem horizontalmente ajustando o layout da coluna
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+
+    with col1:
+        st.write("")
+
+    with col2:
         st.image(image_url, caption='', width=400)
-        st.markdown("---")
+
+    with col3:
+        st.write("")
     
     # Centralizar o texto abaixo da imagem
     st.markdown("<h1 style='text-align: center; font-size: 1.5em;'>DIRETORIA DE ADMINISTRAÇÃO DA AERONÁUTICA</h1>", unsafe_allow_html=True)
