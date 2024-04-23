@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from io import StringIO
 
 def main():
     st.title("App de Processamento de Dados")
@@ -41,8 +40,6 @@ def main():
 
             fim_direito = st.text_input("Data Final do Direito (AAAAMM)", max_chars=6)
 
-           
-
         with col2:
             num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
 
@@ -81,33 +78,11 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo'].iloc[0]}{df['CPF'].iloc[0]}{df['RUBRICA'].iloc[0]}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
-    # Converter o DataFrame em CSV
-    csv_content = df.to_csv(header=False, index=False)
+    # Escrever o conteúdo no arquivo
+    with open("dados.txt", "w") as txt_file:
+        txt_file.write(txt_content)
 
-    # Dividir o conteúdo CSV em linhas
-    csv_lines = csv_content.strip().split("\n")
-
-    # Adicionar as linhas CSV ao arquivo .txt, excluindo a primeira linha que contém os cabeçalhos das colunas
-    txt_content += "\n".join(csv_lines[1:])
-
-    # Botão de download
-    download_button = st.download_button(
-        label="Clique para baixar o arquivo .txt",
-        data=txt_content,
-        file_name="dados.txt",
-        mime="text/plain"
-    )
-
-    if download_button:
-        st.success("Arquivo .txt gerado e baixado com sucesso!")
+    st.success("Arquivo .txt gerado com sucesso!")
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
