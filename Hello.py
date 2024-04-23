@@ -36,16 +36,16 @@ def main():
         with col1:
             tipo_operacao = st.selectbox("Tipo de Operação", ["I - Inclusão", "A - Alteração", "E - Exclusão", "F - Finalização"])
 
-            inicio_direito = st.text_input("Início do Direito (AAAAMM)", max_chars=6, type="number")
+            inicio_direito = st.text_input("Início do Direito (AAAAMM)", max_chars=6)
 
-            fim_direito = st.text_input("Data Final do Direito (AAAAMM)", max_chars=6, type="number")
+            fim_direito = st.text_input("Data Final do Direito (AAAAMM)", max_chars=6)
 
-            num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2, type="number")
+            num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
 
         with col2:
-            valor_indice = st.text_input("Valor do Índice (10 dígitos, 4 casas decimais)", max_chars=14, type="number")
+            valor_indice = st.text_input("Valor do Índice (10 dígitos, 4 casas decimais)", max_chars=14)
 
-            valor_lancamento = st.text_input("Valor do Lançamento (9 dígitos, 2 casas decimais)", max_chars=11, type="number")
+            valor_lancamento = st.text_input("Valor do Lançamento (9 dígitos, 2 casas decimais)", max_chars=11)
 
             documento = st.text_input("Documento (15 dígitos)")
 
@@ -81,6 +81,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
 if __name__ == "__main__":
     main()
+
 
 
 
