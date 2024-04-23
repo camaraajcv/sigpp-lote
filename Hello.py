@@ -6,7 +6,7 @@ def main():
     image_url = "/workspaces/sigpp-lote/logoSIGRH_Cabecalho.png"
 
     # Exibindo a imagem
-    st.image(image_path, caption='Logo SIGRH', use_column_width=True)
+    st.image(image_url, caption='Logo SIGRH', use_column_width=True)
     
     # Centralizar o texto abaixo da imagem
     st.markdown("<h1 style='text-align: center; font-size: 1.5em;'>DIRETORIA DE ADMINISTRAÇÃO DA AERONÁUTICA</h1>", unsafe_allow_html=True)
