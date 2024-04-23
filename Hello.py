@@ -5,7 +5,7 @@ def main():
     st.title("App de Processamento de Dados")
 
     # Upload do arquivo Excel na página principal
-    uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"], label="Faça upload aqui")
+    uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"], accept_multiple_files=False, help="Faça upload aqui")
 
     if uploaded_file is not None:
         # Lendo o arquivo Excel sem cabeçalhos de coluna
