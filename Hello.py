@@ -5,7 +5,10 @@ def main():
     # URL da imagem
     image_url = "logoSIGRH_Cabecalho.png"
 
-    st.write("<div style='text-align:center'><img src='%s' style='max-width:400px;'></div>" % image_url, unsafe_allow_html=True)
+    # Código HTML e CSS para ajustar a largura da imagem para 20% da largura da coluna e centralizar
+    html_code = f'<div style="display: flex; justify-content: center;"><img src="{image_url}" alt="Imagem" style="width:8vw;"/></div>'
+    # Exibir a imagem usando HTML
+    st.markdown(html_code, unsafe_allow_html=True)
     
     # Centralizar o texto abaixo da imagem
     st.markdown("<h1 style='text-align: center; font-size: 1.5em;'>DIRETORIA DE ADMINISTRAÇÃO DA AERONÁUTICA</h1>", unsafe_allow_html=True)
