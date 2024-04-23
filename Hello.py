@@ -12,13 +12,15 @@ def main():
         return base64.b64encode(data).decode()
 
     # Função para exibir o botão personalizado
-    def st_custom_file_uploader(label, type):
+    def st_custom_file_uploader(label):
         # Obtendo o texto codificado em base64
         html_code = f'<label for="file" style="cursor:pointer;">{label}</label>'
-        return f"{html_code}<input type='{type}' id='file' name='file'/>"
+        return html_code
 
     # Exibindo o botão personalizado
-    uploaded_file = st_custom_file_uploader("Faça upload do arquivo Excel", "file")
+    uploaded_file = st_custom_file_uploader("Faça upload do arquivo Excel")
+
+# Usando o botão de upload personalizado
 
     if uploaded_file is not None:
         # Lendo o arquivo Excel sem cabeçalhos de coluna
