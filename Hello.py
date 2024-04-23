@@ -80,11 +80,14 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo'].iloc[0]}{df['CPF'].iloc[0]}{df['RUBRICA'].iloc[0]}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
-    # Converter o DataFrame em CSV sem adicionar uma linha de término
-    df_csv = df.to_csv(header=False, index=False, line_terminator='')
+    # Converter o DataFrame em CSV
+    csv_content = df.to_csv(header=False, index=False)
 
-    # Adicionar o conteúdo CSV ao arquivo .txt
-    txt_content += df_csv
+    # Dividir o conteúdo CSV em linhas
+    csv_lines = csv_content.strip().split("\n")
+
+    # Adicionar as linhas CSV ao arquivo .txt, excluindo a primeira linha que contém os cabeçalhos das colunas
+    txt_content += "\n".join(csv_lines[1:])
 
     # Botão de download
     download_button = st.download_button(
@@ -96,7 +99,6 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
     if download_button:
         st.success("Arquivo .txt gerado e baixado com sucesso!")
-
 
 if __name__ == "__main__":
     main()
