@@ -78,7 +78,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
         documento = documento.strip()
         documento = documento.ljust(15)
 
-        txt_content += f"{tipo_operacao}1010{inicio_direito}{fim_direito}{row['Saram_vinculo']}{row['CPF']}{row['RUBRICA']}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}"
+        txt_content += f"{tipo_operacao}1010{inicio_direito}{fim_direito}{row['Saram_vinculo']}{row['CPF']}{row['RUBRICA']}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
     with open("dados.txt", "w") as txt_file:
         txt_file.write(txt_content)
