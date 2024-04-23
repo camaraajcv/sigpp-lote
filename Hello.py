@@ -27,7 +27,7 @@ def main():
     """, unsafe_allow_html=True)
 
     # Upload do arquivo Excel na página principal
-    uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"], accept_multiple_files=False, help="Faça upload aqui")
+    uploaded_file = st.file_uploader("", type=["xlsx", "xls"])
 
     if uploaded_file is not None:
         # Lendo o arquivo Excel sem cabeçalhos de coluna
