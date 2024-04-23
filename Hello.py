@@ -2,12 +2,11 @@ import streamlit as st
 import pandas as pd
 
 def main():
-    st.title("App de Processamento de Dados")
     # URL da imagem
     image_url = "/workspaces/sigpp-lote/logoSIGRH_Cabecalho.png"
 
     # Código HTML e CSS para ajustar a largura da imagem para 20% da largura da coluna e centralizar
-    html_code = f'<div style="display: flex; justify-content: center;"><img src="{image_url}" alt="Imagem" style="width:8vw;"/></div>'
+    html_code = f'<div style="display: flex; justify-content: center;"><img src="{image_url}" alt="Imagem" style="width:20%;"/></div>'
     # Exibir a imagem usando HTML
     st.markdown(html_code, unsafe_allow_html=True)
 
