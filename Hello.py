@@ -40,12 +40,12 @@ def main():
 
             fim_direito = st.text_input("Data Final do Direito (AAAAMM)", max_chars=6)
 
-        with col2:
             num_parcelas = st.text_input("Número de Parcelas (dois dígitos)", max_chars=2)
 
+        with col2:
             valor_coluna = st.selectbox("O Valor da Planilha é um:", ["Índice", "Valor"])
 
-            documento = st.text_input("Documento (15 dígitos)")
+            documento = st.text_input("Documento (15 dígitos)", max_chars=15)
 
         # Gerar arquivo .txt
         if st.button("Gerar Arquivo .txt"):
@@ -85,6 +85,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
 if __name__ == "__main__":
     main()
+
 
 
 
