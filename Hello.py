@@ -3,7 +3,7 @@ import pandas as pd
 
 def main():
     # URL da imagem
-    image_url = "logoSIGRH_Cabecalho.png"
+    image_url = "https://github.com/camaraajcv/sigpp-lote/blob/main/logoSIGRH_Cabecalho.png"
 
     # Código HTML e CSS para ajustar a largura da imagem para 20% da largura da coluna e centralizar
     html_code = f'<div style="display: flex; justify-content: center;"><img src="{image_url}" alt="Imagem" style="width:8vw;"/></div>'
