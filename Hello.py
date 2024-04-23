@@ -8,15 +8,18 @@ def main():
     uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"])
 
     if uploaded_file is not None:
-        # Lendo o arquivo Excel
-        df = pd.read_excel(uploaded_file)
+        # Lendo o arquivo Excel sem cabeçalhos de coluna
+        df = pd.read_excel(uploaded_file, header=None)
 
-        # Verifica se as colunas necessárias estão presentes
-        if 'Saram_vinculo' in df.columns:
-            # Se a coluna está presente, formatar como número inteiro de 10 dígitos
+        # Verifica se o DataFrame possui exatamente 4 colunas
+        if len(df.columns) == 4:
+            # Renomeia as colunas
+            df.columns = ['Saram_vinculo', 'CPF', 'RUBRICA', 'VALOR']
+
+            # Formata a coluna 'Saram_vinculo' como número inteiro de 10 dígitos
             df['Saram_vinculo'] = df['Saram_vinculo'].astype(str).str.zfill(10)
         else:
-            st.error("Erro: A coluna 'Saram_vinculo' não foi encontrada.")
+            st.error("Erro: O arquivo Excel deve ter exatamente 4 colunas.")
 
         # Exibindo os dados do arquivo Excel
         st.write("Dados do arquivo Excel:")
@@ -36,3 +39,4 @@ def process_data(df):
 
 if __name__ == "__main__":
     main()
+
