@@ -82,6 +82,15 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     with open("dados.txt", "w") as txt_file:
         txt_file.write(txt_content)
 
+    # Ler o conteúdo do arquivo .txt para remover o 'Name: VALOR, dtype: object'
+    with open("dados.txt", "r") as txt_file:
+        lines = txt_file.readlines()
+        txt_content = "".join([line for line in lines if "Name: VALOR, dtype: object" not in line])
+
+    # Escrever o conteúdo corrigido no arquivo .txt
+    with open("dados.txt", "w") as txt_file:
+        txt_file.write(txt_content)
+
     # Botão de download
     download_button = st.download_button(
         label="Clique para baixar o arquivo .txt",
@@ -95,5 +104,6 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
 if __name__ == "__main__":
     main()
+
 
 
