@@ -45,7 +45,7 @@ def main():
 
             valor_coluna = st.selectbox("O Valor da Planilha é um:", ["Índice", "Valor"])
 
-            documento = st.text_input("Documento (15 caracteres)", max_chars=15)
+            documento = st.text_input("Documento (15 dígitos)", max_chars=15)
 
         # Gerar arquivo .txt
         if st.button("Gerar Arquivo .txt"):
@@ -62,35 +62,27 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
         num_parcelas = " " * 2
 
     # Determina os valores dos campos de índice e valor do lançamento com base na seleção do usuário
-    if valor_coluna == "Índice":
-        # Formatando para 4 casas decimais e convertendo para string
-        valor_formatado = '{:.4f}'.format(float(df["VALOR"]))
-
-        # Removendo o ponto e completando com zeros à esquerda
-        valor_indice = valor_formatado.replace('.', '').zfill(10)
-        valor_lancamento = " " * 9  # Campo de valor do lançamento fica vazio
-    else:  # Se valor_coluna for "Valor"
-        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '').zfill(9)  # Formata com 2 casas decimais sem vírgula e preenche com zeros à esquerda
-        valor_indice = " " * 10  # Campo de valor do índice fica vazio
-
-    # Formatação dos campos
-    tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
-    inicio_direito = inicio_direito.zfill(6)
-    fim_direito = fim_direito.zfill(6)
-    documento = documento.strip()  # Remove espaços em branco do documento
-    documento = documento.ljust(15)  # Completa o documento com espaços em branco se tiver menos de 15 caracteres
-
-    # Criar o conteúdo do arquivo .txt
     txt_content = ""
-
     for index, row in df.iterrows():
+        if valor_coluna == "Índice":
+            valor_formatado = '{:.4f}'.format(row["VALOR"])
+            valor_indice = valor_formatado.replace('.', '').zfill(10)
+            valor_lancamento = " " * 9
+        else:
+            valor_lancamento = '{:09.2f}'.format(row["VALOR"]).replace('.', '').zfill(9)
+            valor_indice = " " * 10
+
+        tipo_operacao = tipo_operacao.split(" ")[0]
+        inicio_direito = inicio_direito.zfill(6)
+        fim_direito = fim_direito.zfill(6)
+        documento = documento.strip()
+        documento = documento.ljust(15)
+
         txt_content += f"{tipo_operacao}1010{inicio_direito}{fim_direito}{row['Saram_vinculo']}{row['CPF']}{row['RUBRICA']}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
-    # Escrever o conteúdo no arquivo
     with open("dados.txt", "w") as txt_file:
         txt_file.write(txt_content)
 
-    # Botão de download
     download_button = st.download_button(
         label="Clique para baixar o arquivo .txt",
         data=open("dados.txt", "rb"),
