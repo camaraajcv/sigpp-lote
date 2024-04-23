@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from io import StringIO
 
 def main():
     st.title("App de Processamento de Dados")
