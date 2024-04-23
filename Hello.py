@@ -5,11 +5,9 @@ def main():
     # URL da imagem
     image_url = "/workspaces/sigpp-lote/logoSIGRH_Cabecalho.png"
 
-    # Código HTML e CSS para ajustar a largura da imagem para 20% da largura da coluna e centralizar
-    html_code = f'<div style="display: flex; justify-content: center;"><img src="{image_url}" alt="Imagem" style="width:20%;"/></div>'
-    # Exibir a imagem usando HTML
-    st.markdown(html_code, unsafe_allow_html=True)
-
+    # Exibindo a imagem
+    st.image(image_path, caption='Logo SIGRH', use_column_width=True)
+    
     # Centralizar o texto abaixo da imagem
     st.markdown("<h1 style='text-align: center; font-size: 1.5em;'>DIRETORIA DE ADMINISTRAÇÃO DA AERONÁUTICA</h1>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center; font-size: 1.2em;'>SUBDIRETORIA DE PAGAMENTO DE PESSOAL</h2>", unsafe_allow_html=True)
