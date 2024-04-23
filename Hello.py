@@ -96,3 +96,4 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 if __name__ == "__main__":
     main()
 
+
