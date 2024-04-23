@@ -91,6 +91,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     )
 
     if download_button:
+        st.success(valor_indice)
         st.success("Arquivo .txt gerado e baixado com sucesso!")
 
 if __name__ == "__main__":
