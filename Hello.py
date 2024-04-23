@@ -63,25 +63,29 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
     # Determina os valores dos campos de índice e valor do lançamento com base na seleção do usuário
     if valor_coluna == "Índice":
-        valor_indice = df["VALOR"].apply(lambda x: '{:010.4f}'.format(x).replace('.', '')).str.zfill(10)
-        valor_lancamento = " " * 9
+        valor_indice = df["VALOR"].apply(lambda x: '{:010d}'.format(int(x)))  # Formatação para índice
+        valor_lancamento = " " * 9  # Campo de valor do lançamento fica vazio
     else:  # Se valor_coluna for "Valor"
-        valor_lancamento = df["VALOR"].apply(lambda x: '{:09.2f}'.format(x).replace('.', '')).str.zfill(9)
-        valor_indice = " " * 10
+        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '').zfill(9)  # Formata com 2 casas decimais sem vírgula e preenche com zeros à esquerda
+        valor_indice = " " * 10  # Campo de valor do índice fica vazio
 
     # Formatação dos campos
     tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
     inicio_direito = inicio_direito.zfill(6)
     fim_direito = fim_direito.zfill(6)
-    documento = documento.zfill(15)  # Preenche o documento com zeros à esquerda para ter sempre 15 dígitos
+    documento = documento.strip()  # Remove espaços em branco do documento
 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo'].iloc[0]}{df['CPF'].iloc[0]}{df['RUBRICA'].iloc[0]}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
+    # Escrever o conteúdo no arquivo
+    with open("dados.txt", "w") as txt_file:
+        txt_file.write(txt_content)
+
     # Botão de download
     download_button = st.download_button(
         label="Clique para baixar o arquivo .txt",
-        data=txt_content,
+        data=open("dados.txt", "rb"),
         file_name="dados.txt",
         mime="text/plain"
     )
@@ -91,7 +95,6 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
 if __name__ == "__main__":
     main()
-
 
 
 
