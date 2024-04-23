@@ -1,16 +1,24 @@
 import streamlit as st
 import pandas as pd
-from streamlit.components.v1 import html
+import base64
 
 def main():
     st.title("App de Processamento de Dados")
-   # Função para substituir o botão de upload por um novo elemento HTML personalizado
-    def upload_button(label, key=None, **kwargs):
-        # Definindo o novo elemento HTML com o texto personalizado
-        return html('<input type="file" value="" name="{}">'.format(key), label=label, **kwargs)
+   
+    # Função para codificar o texto em base64
+    def get_base64_of_bin_file(bin_file):
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
 
-    # Exibindo o novo botão de upload personalizado
-    uploaded_file = upload_button("Faça upload do arquivo Excel", type=["xlsx", "xls"])
+    # Função para exibir o botão personalizado
+    def st_custom_file_uploader(label, type):
+        # Obtendo o texto codificado em base64
+        html_code = f'<label for="file" style="cursor:pointer;">{label}</label>'
+        return f"{html_code}<input type='{type}' id='file' name='file'/>"
+
+    # Exibindo o botão personalizado
+    uploaded_file = st_custom_file_uploader("Faça upload do arquivo Excel", "file")
 
     if uploaded_file is not None:
         # Lendo o arquivo Excel sem cabeçalhos de coluna
