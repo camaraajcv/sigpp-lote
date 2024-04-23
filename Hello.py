@@ -6,7 +6,7 @@ def main():
     image_url = "logoSIGRH_Cabecalho.png"
 
     # Exibindo a imagem
-    st.image(image_url, caption='',width=400)
+    st.image(image_url, caption='',width=400,align='center')
     
     # Centralizar o texto abaixo da imagem
     st.markdown("<h1 style='text-align: center; font-size: 1.5em;'>DIRETORIA DE ADMINISTRAÇÃO DA AERONÁUTICA</h1>", unsafe_allow_html=True)
