@@ -69,8 +69,11 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
         valor_indice = df["VALOR"].astype(int).astype(str).str.zfill(10)  # Converte para inteiro e preenche com zeros à esquerda
         valor_lancamento = " " * 9  # Campo de valor do lançamento fica vazio
     else:  # Se valor_coluna for "Valor"
-        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '').zfill(9)  # Formata com 2 casas decimais sem vírgula e preenche com zeros à esquerda
+        valor_lancamento = " " * 9  # Campo de valor do lançamento fica vazio
         valor_indice = " " * 10  # Campo de valor do índice fica vazio
+
+    # Remover temporariamente a coluna "VALOR" para evitar a inclusão de dados indesejados no arquivo .txt
+    df_without_value = df.drop(columns=["VALOR"])
 
     # Formatação dos campos
     tipo_operacao = tipo_operacao.split(" ")[0]  # Pegar apenas a primeira letra do tipo de operação
@@ -81,8 +84,8 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     # Criar o conteúdo do arquivo .txt
     txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo'].iloc[0]}{df['CPF'].iloc[0]}{df['RUBRICA'].iloc[0]}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
-    # Converter o DataFrame em CSV
-    csv_content = df.to_csv(header=False, index=False)
+    # Converter o DataFrame em CSV sem a coluna "VALOR"
+    csv_content = df_without_value.to_csv(header=False, index=False)
 
     # Dividir o conteúdo CSV em linhas
     csv_lines = csv_content.strip().split("\n")
