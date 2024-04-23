@@ -11,6 +11,9 @@ def main():
         # Lendo o arquivo Excel
         df = pd.read_excel(uploaded_file)
 
+        # Validando e formatando a primeira coluna
+        df['Saram_vinculo'] = df['Saram_vinculo'].apply(lambda x: '{:010d}'.format(x))
+
         # Exibindo os dados do arquivo Excel
         st.write("Dados do arquivo Excel:")
         st.write(df)
