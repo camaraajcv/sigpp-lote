@@ -11,8 +11,12 @@ def main():
         # Lendo o arquivo Excel
         df = pd.read_excel(uploaded_file)
 
-        # Validando e formatando a primeira coluna
-        df['Saram_vinculo'] = df['Saram_vinculo'].apply(lambda x: '{:010d}'.format(x))
+        # Verifica se as colunas necessárias estão presentes
+        if 'Saram_vinculo' in df.columns:
+            # Se a coluna está presente, formatar como número inteiro de 10 dígitos
+            df['Saram_vinculo'] = df['Saram_vinculo'].astype(str).str.zfill(10)
+        else:
+            st.error("Erro: A coluna 'Saram_vinculo' não foi encontrada.")
 
         # Exibindo os dados do arquivo Excel
         st.write("Dados do arquivo Excel:")
