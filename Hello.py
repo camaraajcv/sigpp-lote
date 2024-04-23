@@ -82,7 +82,17 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     with open("dados.txt", "w") as txt_file:
         txt_file.write(txt_content)
 
-    st.success("Arquivo .txt gerado com sucesso!")
+    # Botão de download
+    download_button = st.download_button(
+        label="Clique para baixar o arquivo .txt",
+        data=txt_content,
+        file_name="dados.txt",
+        mime="text/plain"
+    )
+
+    if download_button:
+        st.success("Arquivo .txt gerado e baixado com sucesso!")
 
 if __name__ == "__main__":
     main()
+
