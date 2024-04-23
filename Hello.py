@@ -45,7 +45,7 @@ def main():
 
             valor_coluna = st.selectbox("O Valor da Planilha é um:", ["Índice", "Valor"])
 
-            documento = st.text_input("Documento (15 dígitos)", max_chars=15)
+            documento = st.text_input("Documento (15 caracteres)", max_chars=15)
 
         # Gerar arquivo .txt
         if st.button("Gerar Arquivo .txt"):
@@ -78,14 +78,18 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     inicio_direito = inicio_direito.zfill(6)
     fim_direito = fim_direito.zfill(6)
     documento = documento.strip()  # Remove espaços em branco do documento
+    documento = documento.ljust(15)  # Completa o documento com espaços em branco se tiver menos de 15 caracteres
 
     # Criar o conteúdo do arquivo .txt
-    txt_content = f"{tipo_operacao}1010{inicio_direito}{fim_direito}{df['Saram_vinculo'].iloc[0]}{df['CPF'].iloc[0]}{df['RUBRICA'].iloc[0]}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
+    txt_content = ""
+
+    for index, row in df.iterrows():
+        txt_content += f"{tipo_operacao}1010{inicio_direito}{fim_direito}{row['Saram_vinculo']}{row['CPF']}{row['RUBRICA']}01{num_parcelas}{valor_indice}{valor_lancamento}{documento}\n"
 
     # Escrever o conteúdo no arquivo
     with open("dados.txt", "w") as txt_file:
         txt_file.write(txt_content)
-        st.success(valor_indice)
+
     # Botão de download
     download_button = st.download_button(
         label="Clique para baixar o arquivo .txt",
@@ -95,15 +99,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     )
 
     if download_button:
-        
         st.success("Arquivo .txt gerado e baixado com sucesso!")
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
