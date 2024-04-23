@@ -3,6 +3,28 @@ import pandas as pd
 
 def main():
     st.title("App de Processamento de Dados")
+    # Adicionando CSS para ocultar o texto original do botão de upload e adicionar o texto personalizado
+    st.markdown("""
+        <style>
+            .fileinput-button::before {
+                content: 'Faça upload aqui';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .fileinput-button input {
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                cursor: pointer;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
     # Upload do arquivo Excel na página principal
     uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"], accept_multiple_files=False, help="Faça upload aqui")
