@@ -64,13 +64,13 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
     # Determina os valores dos campos de índice e valor do lançamento com base na seleção do usuário
     if valor_coluna == "Índice":
         # Formatando para 4 casas decimais e convertendo para string
-        valor_formatado = '{:.4f}'.format(float(df["VALOR"]))
+        valor_formatado = df["VALOR"].apply(lambda x: '{:.4f}'.format(x))
 
         # Removendo o ponto e completando com zeros à esquerda
-        valor_indice = valor_formatado.replace('.', '').zfill(10)
+        valor_indice = valor_formatado.str.replace('.', '').str.zfill(10)
         valor_lancamento = " " * 9  # Campo de valor do lançamento fica vazio
     else:  # Se valor_coluna for "Valor"
-        valor_lancamento = '{:09.2f}'.format(float(df["VALOR"])).replace('.', '').zfill(9)  # Formata com 2 casas decimais sem vírgula e preenche com zeros à esquerda
+        valor_lancamento = df["VALOR"].apply(lambda x: '{:09.2f}'.format(x)).str.replace('.', '').str.zfill(9)  # Formata com 2 casas decimais sem vírgula e preenche com zeros à esquerda
         valor_indice = " " * 10  # Campo de valor do índice fica vazio
 
     # Formatação dos campos
