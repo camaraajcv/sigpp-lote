@@ -16,11 +16,11 @@ def main():
     st.markdown("<h3 style='text-align: center; font-size: 1em; text-decoration: underline;'>SIGPP</h3>", unsafe_allow_html=True)
 
     # Texto explicativo
-    st.write("Realizando carga de lançamentos financeiros no SIGPP")
-    st.write("A Tabela excel deverá ter na <b>PRIMEIRA COLUNA</b> - Matrícula com Vínculo, SEM DÍGITOS OU PONTOS")
-    st.write("<b>SEGUNDA COLUNA</b> - CPF SEM DÍGITOS OU PONTOS")
-    st.write("<b>TERCEIRA COLUNA</b> - RUBRICA SEM DÍGITOS OU PONTOS")
-    st.write("<b>QUARTA COLUNA</b> - VALOR OU ÍNDICE")
+    st.write("Realizando carga de lançamentos financeiros no SIGPP", unsafe_allow_html=True)
+    st.write("A Tabela excel deverá ter na <b>PRIMEIRA COLUNA</b> - Matrícula com Vínculo, SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
+    st.write("<b>SEGUNDA COLUNA</b> - CPF SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
+    st.write("<b>TERCEIRA COLUNA</b> - RUBRICA SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
+    st.write("<b>QUARTA COLUNA</b> - VALOR OU ÍNDICE", unsafe_allow_html=True)
     # Upload do arquivo Excel na página principal
     uploaded_file = st.file_uploader("Faça upload do arquivo Excel", type=["xlsx", "xls"], accept_multiple_files=False, help="Faça upload aqui")
 
