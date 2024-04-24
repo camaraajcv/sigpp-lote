@@ -17,7 +17,8 @@ def main():
 
     # Texto explicativo
     st.write("Realizando carga de lançamentos financeiros no SIGPP", unsafe_allow_html=True)
-    st.write("A Tabela excel deverá ter na <b>PRIMEIRA COLUNA</b> - Matrícula com Vínculo, SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
+    st.write("A Tabela excel deverá ter 4 COLUNAS:")
+    st.write("<b>PRIMEIRA COLUNA</b> - Matrícula com Vínculo, SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
     st.write("<b>SEGUNDA COLUNA</b> - CPF SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
     st.write("<b>TERCEIRA COLUNA</b> - RUBRICA SEM DÍGITOS OU PONTOS", unsafe_allow_html=True)
     st.write("<b>QUARTA COLUNA</b> - VALOR OU ÍNDICE", unsafe_allow_html=True)
@@ -65,8 +66,11 @@ def main():
             documento = st.text_input("Documento (15 dígitos)", max_chars=15)
 
         # Gerar arquivo .txt
-        if st.button("Gerar Arquivo .txt"):
-            generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_coluna, documento, df)
+        if inicio_direito:  # Verificar se o campo "Início do Direito" está preenchido
+            if st.button("Gerar Arquivo .txt"):
+                generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_coluna, documento, df)
+        else:
+            st.error("Por favor, preencha o campo 'Início do Direito' antes de gerar o arquivo .txt.")
 
 
 def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, valor_coluna, documento, df):
