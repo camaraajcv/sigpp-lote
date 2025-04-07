@@ -35,7 +35,7 @@ def main():
             df.columns = ['Saram_vinculo', 'CPF', 'RUBRICA', 'VALOR']
 
             # Formata a coluna 'Saram_vinculo' como número inteiro de 10 dígitos
-            df['Saram_vinculo'] = df['Saram_vinculo'].apply(lambda x: str(int(x)).zfill(8) if pd.notnull(x) else "")
+            df['Saram_vinculo'] = df['Saram_vinculo'].apply(lambda x: str(int(x)).zfill(10) if pd.notnull(x) else "")
             # Formata a coluna 'CPF' como número inteiro de 11 dígitos
             df['CPF'] = df['CPF'].astype(str).str.zfill(11)
             # Formata a coluna 'RUBRICA' como número inteiro de 6 dígitos
