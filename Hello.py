@@ -84,7 +84,7 @@ def generate_txt_file(tipo_operacao, inicio_direito, fim_direito, num_parcelas, 
 
     # Determina os valores dos campos de índice e valor do lançamento com base na seleção do usuário
     txt_content = ""
-    df["Saram_vinculo"] = df["Saram_vinculo"].apply(lambda x: str(int(x)).zfill(7) if pd.notnull(x) else "")
+    
     for index, row in df.iterrows():
         if valor_coluna == "Índice":
             valor_formatado = '{:.4f}'.format(row["VALOR"])
