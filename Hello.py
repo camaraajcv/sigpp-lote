@@ -39,7 +39,7 @@ def main():
             # Formata a coluna 'CPF' como número inteiro de 11 dígitos
             df['CPF'] = df['CPF'].astype(str).str.zfill(11)
             # Formata a coluna 'RUBRICA' como número inteiro de 6 dígitos
-            df['RUBRICA'] = df['RUBRICA'].astype(str).str.zfill(6)
+            df['RUBRICA'] = df['RUBRICA'].apply(lambda x: str(int(x)).zfill(8) if pd.notnull(x) else "")
         else:
             st.error("Erro: O arquivo Excel deve ter exatamente 4 colunas.")
 
