@@ -3,3 +3,5 @@ pandas
 pydeck
 streamlit
 openpyxl
+streamlit==1.29.0
+altair==4.2.2
